@@ -10,8 +10,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.justjava.R;
 
@@ -32,23 +36,44 @@ public class MainActivity extends AppCompatActivity {
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void submitOrder(View view) {
-        int price = calculatePrice();
-        displayMessage(createOrderSummery(price));
+        EditText text = (EditText) findViewById(R.id.name_field);
+        String valueName = text.getText().toString();
+//        Log.v("MainActivity", "Name "+ valueName);
+
+        CheckBox whippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
+        CheckBox chocolateCheckBox = (CheckBox) findViewById(R.id.chocolate_checkbox);
+
+        boolean hasWhippedCream =  whippedCreamCheckBox.isChecked();
+        boolean hasChocolate = chocolateCheckBox.isChecked();
+
+//        Log.v("MainActivity", "Add whipped cream " + hasWhippedCream);
+
+        int price = calculatePrice(hasWhippedCream, hasChocolate);
+        displayMessage(createOrderSummery(valueName, price, hasWhippedCream, hasChocolate));
     }
 
     /**
      * Calculates the price of the order.
      * * @return total price
      */
-    private int calculatePrice() {
-        return quantity * 5;
+    private int calculatePrice( boolean addWhippedCream, boolean addChocolate ){
+        int basePrice = 5;
+        if(addWhippedCream){
+            basePrice = basePrice + 1;
+        }
+        if(addChocolate){
+            basePrice = basePrice + 2;
+        }
+        return quantity * basePrice;
     }
 
-    private String createOrderSummery(int price) {
-        String priceMessage = "Name: Bohdan Tanchak";
-        priceMessage += "\n Quantity: " + quantity;
-        priceMessage += "\n Total: $" + price;
-        priceMessage += "\n Thank you!";
+    private String createOrderSummery(String valueName, int price, boolean addWhippedCream, boolean addChocolate) {
+        String priceMessage = "Name: " + valueName;
+        priceMessage += "\nAdd whipped cream? " + addWhippedCream;
+        priceMessage += "\nAdd chocolate? " + addChocolate;
+        priceMessage += "\nQuantity: " + quantity;
+        priceMessage += "\nTotal: $" + price;
+        priceMessage += "\nThank you!";
         return priceMessage;
     }
 
@@ -60,25 +85,23 @@ public class MainActivity extends AppCompatActivity {
         quantityTextView.setText("" + number);
     }
 
-    /**
-     * This method displays the given price on the screen.
-     */
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void displayPrice(int number) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
-    }
 
     public void increment(View view) {
+        if(quantity == 100){
+            Toast.makeText(this, "You cann't have more than 100 cups of coffee!", Toast.LENGTH_LONG).show();
+            return;
+        }
         quantity = quantity + 1;
         displayQuntity(quantity);
-//        displayPrice( quantity  * 5);
     }
 
     public void decrement(View view) {
+        if(quantity == 1){
+            Toast.makeText(this, "You cann't have less 1 cup of coffe", Toast.LENGTH_LONG).show();
+            return;
+        }
         quantity = quantity - 1;
         displayQuntity(quantity);
-//        displayPrice( quantity  * 5);
     }
 
     /**
