@@ -79,12 +79,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String createOrderSummery(String valueName, int price, boolean addWhippedCream, boolean addChocolate) {
-        String priceMessage = "Name: " + valueName;
-        priceMessage += "\nAdd whipped cream? " + addWhippedCream;
-        priceMessage += "\nAdd chocolate? " + addChocolate;
-        priceMessage += "\nQuantity: " + quantity;
-        priceMessage += "\nTotal: $" + price;
-        priceMessage += "\nThank you!";
+        String priceMessage = getString(R.string.order_summery_name, valueName);
+        priceMessage += "\n" + getString(R.string.order_whipped_cream, addWhippedCream);
+        priceMessage += "\n" + getString(R.string.order_chocolate, addChocolate);
+        priceMessage += "\n" + getString(R.string.order_quantity, quantity);
+        priceMessage += "\n" + getString(R.string.order_total, price);
+        priceMessage += "\n" + getString(R.string.thank_you);
         return priceMessage;
     }
 

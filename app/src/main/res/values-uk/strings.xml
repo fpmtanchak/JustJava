@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+    <string name="app_name">Just Java</string>
+    <string name="chocolate">Шоколад</string>
+    <string name="order">Замовлення</string>
+    <string name="thank_you">Дякую!</string>
+    <string name="toppings">Додатки</string>
+    <string name="whipped_cream">Збиті вершки</string>
+    <string name="quantity">Кількість</string>
+    <string name="name">Ім\'я</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="please_wait...">Зачекайте буль ласка...</string>
+    <string name="order_summery_name">Ім\'я: <xliff:g id="name" example="Amy">%s</xliff:g></string>
+    <string name="zero">0</string>
+    <string name="order_summery">Підсумок замовлення</string>
+    <string name="order_whipped_cream">Додати збитих вершків? <xliff:g example="Amy" id="whipped_cream">%b</xliff:g></string>
+    <string name="order_chocolate">Додати шоколаду? <xliff:g example="Amy" id="chocolate">%b</xliff:g></string>
+    <string name="order_quantity">Кількість <xliff:g example="2" id="quantity">%x</xliff:g></string>
+    <string name="order_total">Вартість <xliff:g example="$10" id="price">%x</xliff:g></string>
+</resources>
