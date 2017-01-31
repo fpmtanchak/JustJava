@@ -5,7 +5,9 @@ package com.example.justjava; /**
  * package com.example.android.justjava;
  */
 
+import android.content.Intent;
 import android.icu.text.NumberFormat;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -39,29 +41,38 @@ public class MainActivity extends AppCompatActivity {
         EditText text = (EditText) findViewById(R.id.name_field);
         String valueName = text.getText().toString();
 //        Log.v("MainActivity", "Name "+ valueName);
-
         CheckBox whippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
         CheckBox chocolateCheckBox = (CheckBox) findViewById(R.id.chocolate_checkbox);
 
-        boolean hasWhippedCream =  whippedCreamCheckBox.isChecked();
+        boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
         boolean hasChocolate = chocolateCheckBox.isChecked();
 
 //        Log.v("MainActivity", "Add whipped cream " + hasWhippedCream);
-
         int price = calculatePrice(hasWhippedCream, hasChocolate);
-        displayMessage(createOrderSummery(valueName, price, hasWhippedCream, hasChocolate));
+        String priceMessege = createOrderSummery(valueName, price, hasWhippedCream, hasChocolate);
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Just Java " + valueName);
+        intent.putExtra(Intent.EXTRA_TEXT, priceMessege);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+
+//            displayMessage(priceMessege);
+        }
     }
 
     /**
      * Calculates the price of the order.
      * * @return total price
      */
-    private int calculatePrice( boolean addWhippedCream, boolean addChocolate ){
+
+    private int calculatePrice(boolean addWhippedCream, boolean addChocolate) {
         int basePrice = 5;
-        if(addWhippedCream){
+        if (addWhippedCream) {
             basePrice = basePrice + 1;
         }
-        if(addChocolate){
+        if (addChocolate) {
             basePrice = basePrice + 2;
         }
         return quantity * basePrice;
@@ -87,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void increment(View view) {
-        if(quantity == 100){
-            Toast.makeText(this, "You cann't have more than 100 cups of coffee!", Toast.LENGTH_LONG).show();
+        if (quantity == 100) {
+            Toast.makeText(this, "You cannot have more than 100 cups of coffee!", Toast.LENGTH_LONG).show();
             return;
         }
         quantity = quantity + 1;
@@ -96,20 +107,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void decrement(View view) {
-        if(quantity == 1){
-            Toast.makeText(this, "You cann't have less 1 cup of coffe", Toast.LENGTH_LONG).show();
+        if (quantity == 1) {
+            Toast.makeText(this, "You cannot have less 1 cup of coffee", Toast.LENGTH_LONG).show();
             return;
         }
         quantity = quantity - 1;
         displayQuntity(quantity);
     }
 
-    /**
-     * This method displays the given text on the screen.
-     */
-    private void displayMessage(String message) {
-        TextView orderSummeryTextView = (TextView) findViewById(R.id.order_summery_text_view);
-        orderSummeryTextView.setText(message);
-    }
+//    /**
+//     * This method displays the given text on the screen.
+//     */
+//    private void displayMessage(String message) {
+//        TextView orderSummeryTextView = (TextView) findViewById(R.id.order_summery_text_view);
+//        orderSummeryTextView.setText(message);
+//    }
 
 }
