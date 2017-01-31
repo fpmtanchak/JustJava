@@ -6,20 +6,17 @@ package com.example.justjava; /**
  */
 
 import android.content.Intent;
-import android.icu.text.NumberFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.justjava.R;
 
 /**
  * This app displays an order form to order coffee.
@@ -49,12 +46,12 @@ public class MainActivity extends AppCompatActivity {
 
 //        Log.v("MainActivity", "Add whipped cream " + hasWhippedCream);
         int price = calculatePrice(hasWhippedCream, hasChocolate);
-        String priceMessege = createOrderSummery(valueName, price, hasWhippedCream, hasChocolate);
+        String priceMessage = createOrderSummery(valueName, price, hasWhippedCream, hasChocolate);
 
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
         intent.putExtra(Intent.EXTRA_SUBJECT, "Just Java " + valueName);
-        intent.putExtra(Intent.EXTRA_TEXT, priceMessege);
+        intent.putExtra(Intent.EXTRA_TEXT, priceMessage);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
 
@@ -93,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void displayQuntity(int number) {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
-        quantityTextView.setText("" + number);
+        quantityTextView.setText(number);
     }
 
 
@@ -114,13 +111,5 @@ public class MainActivity extends AppCompatActivity {
         quantity = quantity - 1;
         displayQuntity(quantity);
     }
-
-//    /**
-//     * This method displays the given text on the screen.
-//     */
-//    private void displayMessage(String message) {
-//        TextView orderSummeryTextView = (TextView) findViewById(R.id.order_summery_text_view);
-//        orderSummeryTextView.setText(message);
-//    }
 
 }

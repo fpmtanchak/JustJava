@@ -12,7 +12,7 @@
     <string name="plus">+</string>
     <string name="please_wait...">Зачекайте буль ласка...</string>
     <string name="order_summery_name">Ім\'я: <xliff:g id="name" example="Amy">%s</xliff:g></string>
-    <string name="zero">0</string>
+    <string name="zero">2</string>
     <string name="order_summery">Підсумок замовлення</string>
     <string name="order_whipped_cream">Додати збитих вершків? <xliff:g example="Amy" id="whipped_cream">%b</xliff:g></string>
     <string name="order_chocolate">Додати шоколаду? <xliff:g example="Amy" id="chocolate">%b</xliff:g></string>
